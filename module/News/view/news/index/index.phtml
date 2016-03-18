@@ -1,0 +1,53 @@
+
+
+<?php if (!empty($this->paginator)) : ?>
+    <div id="news-Posts">
+        <?php foreach ($this->paginator as $Post) : ?>
+            <?php /** @var \news\Entity\Post $Post */ ?>
+            <?php $PostedAt = $this->dateFormat(
+                $NewsPost->getCreated(),
+                IntlDateFormatter::MEDIUM, // Date
+                IntlDateFormatter::MEDIUM, // Time
+                'en_US'
+            ); ?>
+
+            <div class="blog-Post">
+                <h2>
+                    <a href="<?php echo $this->url('display-Post', array('categorySlug' => $Post->getCategory()->getSlug(), 'PostSlug' => $Post->getSlug())); ?>">
+                        <?php echo $this->escapeHtml($Post->getTitle()); ?>
+                    </a>
+                </h2>
+
+                <div class="Posted-at">
+                    <?php echo sprintf($this->translate('Posted on %s in the %s category'), $PostedAt, $this->escapeHtml($Post->getCategory()->getName())); ?>
+                </div>
+
+                <p class="excerpt">
+                    <?php echo nl2br($this->escapeHtml($Post->getContent())); ?>
+                </p>
+
+                <a href="<?php echo $this->url('display-Post', array('categorySlug' => $Post->getCategory()->getSlug(), 'PostSlug' => $Post->getSlug())); ?>">
+                    <?php echo $this->translate('Read more'); ?>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="pagination-wrapper">
+        <?php
+
+        echo $this->paginationControl($this->paginator,
+            'Sliding',
+            'partial/pagination',
+            array('route' => 'news/paged'));
+
+        ?>
+    </div>
+
+<?php else : ?>
+    <p><?php echo $this->translate('There are currently no Posts.'); ?></p>
+<?php endif; ?>
+
+
+
+

@@ -1,0 +1,31 @@
+
+
+<?php $this->headLink()->appendStylesheet('/css/news/index/view-Post.css'); ?>
+
+<?php /** @var \news\Entity\Post $Post */ ?>
+<?php $Post = $this->Post; ?>
+
+<?php $PostedAt = $this->dateFormat(
+    $Post->getCreated(),
+    IntlDateFormatter::MEDIUM, // Date
+    IntlDateFormatter::MEDIUM, // Time
+    'en_US'
+); ?>
+
+<div class="wrapper">
+    <div class="blog-Post">
+        <h1><?php echo $this->escapeHtml($Post->getTitle()); ?></h1>
+
+        <div class="meta">
+            <?php echo sprintf($this->translate('Posted on %s'), $PostedAt); ?> |
+            <?php echo $this->escapeHtml($Post->getCategory()->getName()); ?> |
+            <a href="<?php echo $this->url('edit', array('PostId' => $Post->getId())); ?>">edit</a> |
+            <a href="<?php echo $this->url('delete', array('PostId' => $Post->getId())); ?>">delete</a>
+        </div>
+
+        <p><?php echo nl2br($this->escapeHtml($Post->getContent())); ?></p>
+    </div>
+</div>
+
+
+

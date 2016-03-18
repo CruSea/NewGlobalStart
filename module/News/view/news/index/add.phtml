@@ -1,0 +1,34 @@
+
+
+<div id="page-wrapper" class="gray-bg">
+    <!--top navigation-->
+<?php
+
+/**@var $form \news\Form\Add */
+$form = $this->form;
+$form->prepare();
+echo $this->form()->openTag($form);
+
+?>
+
+<div class="form-group">
+    <?php echo $this->formRow($form->get('title')); ?>
+</div>
+
+<div class="form-group">
+    <?php echo $this->formRow($form->get('description')); ?>
+</div>
+
+<div class="form-group">
+    <?php echo $this->formRow($form->get('content')); ?>
+</div>
+
+<div class="form-group">
+    <?php echo $this->formRow($form->get('Published_date')); ?>
+</div>
+
+<?php echo $this->formSubmit($form->get('submit')); ?>
+
+
+
+
